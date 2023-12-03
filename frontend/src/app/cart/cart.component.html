@@ -1,0 +1,161 @@
+
+  <div class="cart-container flex justify-center items-center">
+    <mat-card class="w-full max-w-xl p-8 cart-card">
+      <div class="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10">
+        <h2 class="text-2xl font-semibold mb-4">Your Cart</h2>
+        <ul class="flex flex-col divide-y">
+          <li *ngFor="let cartItem of cart" class="flex flex-col py-6 sm:flex-row sm:justify-between items-center">
+            <div class="flex w-full space-x-4">
+              <div class="flex flex-col justify-between w-full">
+                <div class="flex justify-between w-full pb-2 space-x-2">
+                  <div class="space-y-1">
+                    <h3 class="text-lg font-semibold">{{ cartItem.product.name }}</h3>
+                    <p class="text-sm text-black">${{ cartItem.product.price.toFixed(2) }}</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-lg font-semibold">{{ cartItem.quantity }} x ${{ cartItem.product.price.toFixed(2) }}</p>
+                    <p class="text-sm line-through dark:text-black">{{ cartItem.product.previousPrice ? '$' + cartItem.product.previousPrice.toFixed(2) : '' }}</p>
+                  </div>
+                </div>
+                <div class="flex text-sm divide-x">
+                  <button type="button" class="flex items-center px-2 py-1 space-x-1 text-black hover:text-red-500" (click)="removeOneItem(cartItem)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 fill-current"></svg>
+                    <span>Remove</span>
+                  </button>
+                  <button type="button" class="flex items-center px-2 py-1 space-x-1 text-black hover:text-green-500" (click)="addToCart(cartItem)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-4 h-4 fill-current"></svg>
+                    <span>Add</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="space-y-1 text-right">
+          <p class="text-lg font-semibold total-amount">Total amount:
+            <span class="font-semibold total-amount-value">${{ getTotalPrice().toFixed(2) }}</span>
+          </p>
+        </div>
+        <div class="flex justify-end space-x-4 mt-4">
+          <button type="button" class="back-btn">
+            <a routerLink="/dashboard">
+              <span class="sr-only sm:not-sr-only">Back to shop</span>
+              Back
+            </a>
+          </button>
+          <button type="button" class="checkout-btn">
+            <span class="sr-only sm:not-sr-only">Checkout</span> 
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+
+
+
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+    }
+
+    /* Center the cart container */
+    .cart-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Stylish cart card */
+    .cart-card {
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+    }
+
+    /* Title styling */
+    .cart-card h2 {
+      color: #2d3748;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Item list styling */
+    .cart-card ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .cart-card li {
+      padding: 1rem 0;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    .cart-card li:last-child {
+      border-bottom: none;
+    }
+
+    /* Item details styling */
+    .cart-card h3 {
+      color: #4a5568;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .cart-card p {
+      color: #718096;
+      font-size: 14px;
+    }
+
+    /* Button styling */
+    .cart-card button {
+      cursor: pointer;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .cart-card button:hover {
+      filter: brightness(90%);
+    }
+
+    /* Back to shop button */
+    .cart-card button.back-btn {
+      background-color: #63b3ed;
+      color: #fff;
+      margin-right: 8px;
+    }
+
+    /* Checkout button */
+    .cart-card button.checkout-btn {
+      background-color: #2d3748;
+      color: #fff;
+    }
+
+    /* Total amount styling */
+    .cart-card .total-amount {
+      font-size: 18px;
+      font-weight: 700;
+      color: #2d3748;
+      margin-top: 1.5rem;
+    }
+
+    /* Total amount value styling */
+    .cart-card .total-amount-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #48bb78;
+    }
+  </style>
